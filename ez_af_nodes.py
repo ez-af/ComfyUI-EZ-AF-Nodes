@@ -243,7 +243,7 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "EZ Loaf from CSV": "EZ CSV Reader",
+    "EZ Load from CSV": "EZ CSV Reader",
     "EZ Concatenate Text": "EZ MEGA Concat (Text)",
     "EZ String": "EZ String",
 }

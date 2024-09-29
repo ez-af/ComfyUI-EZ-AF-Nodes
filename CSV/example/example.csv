@@ -1,3 +1,5 @@
 ﻿name;prompt;negative_prompt
-Example;Example positive ;Example negative 
+Example;Example positive ;Example negative
+Wildcard example;__wildcardname__, ;
+LORA example;<lora:loraname:0.9>, ;
 
