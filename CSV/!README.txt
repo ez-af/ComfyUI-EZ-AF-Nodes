@@ -5,4 +5,4 @@ as you don't have to worry about quotation marks
 
 Also native for Microsoft Excel reading and saving
 
-Note: Refreshing widgets will always override selected file and prompt
+Note: Refreshing widgets will always override selected prompt (selected file will not be changed)
