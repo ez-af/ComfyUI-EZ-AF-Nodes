@@ -5,7 +5,7 @@
 This custom nodes pack helps to conveniently control text in complex prompt-builder type workflows
 
 > [!WARNING]
-> This pack requires pysssss.Binding extension from [pythongosssss Custom Scripts](https://github.com/pythongosssss/ComfyUI-Custom-Scripts) installed
+> This pack requires pysssss.Binding extension. To use it, install [pythongosssss Custom Scripts](https://github.com/pythongosssss/ComfyUI-Custom-Scripts)
 
 <!--  It is recommended to install this pack using [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager)  -->
 
