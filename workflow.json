@@ -1,21 +1,13 @@
 {
-  "last_node_id": 26,
-  "last_link_id": 21,
+  "last_node_id": 28,
+  "last_link_id": 26,
   "nodes": [
     {
       "id": 8,
       "type": "VAEDecode",
       "pos": {
         "0": 1210,
-        "1": 180,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": 180
       },
       "size": {
         "0": 210,
@@ -49,6 +41,7 @@
       "properties": {
         "Node name for S&R": "VAEDecode"
       },
+      "widgets_values": [],
       "shape": 1
     },
     {
@@ -56,15 +49,7 @@
       "type": "Note",
       "pos": {
         "0": 400,
-        "1": -30,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": -30
       },
       "size": {
         "0": 310,
@@ -87,15 +72,7 @@
       "type": "Note",
       "pos": {
         "0": -140,
-        "1": -450,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": -450
       },
       "size": {
         "0": 310,
@@ -118,15 +95,7 @@
       "type": "CLIPTextEncode",
       "pos": {
         "0": 410,
-        "1": 180,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": 180
       },
       "size": {
         "0": 420,
@@ -169,76 +138,18 @@
       "shape": 1
     },
     {
-      "id": 13,
-      "type": "EZ String",
-      "pos": {
-        "0": -360,
-        "1": -30,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 210,
-        "1": 100
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "any",
-          "type": "*",
-          "links": [
-            14
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "string",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "EZ String"
-      },
-      "widgets_values": [
-        "Photography | Cinematic"
-      ],
-      "color": "#232",
-      "bgcolor": "#353",
-      "shape": 1
-    },
-    {
       "id": 17,
       "type": "Note",
       "pos": {
         "0": -360,
-        "1": 110,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": 110
       },
       "size": {
         "0": 530,
         "1": 100
       },
       "flags": {},
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -254,22 +165,14 @@
       "type": "EmptyLatentImage",
       "pos": {
         "0": 510,
-        "1": 600,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": 600
       },
       "size": {
         "0": 315,
         "1": 106
       },
       "flags": {},
-      "order": 4,
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -297,15 +200,7 @@
       "type": "SaveImage",
       "pos": {
         "0": 1460,
-        "1": 180,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": 180
       },
       "size": {
         "0": 590,
@@ -335,15 +230,7 @@
       "type": "Note",
       "pos": {
         "0": -270,
-        "1": 430,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": 430
       },
       "size": {
         "0": 440,
@@ -352,7 +239,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -368,22 +255,14 @@
       "type": "EZ Load from CSV",
       "pos": {
         "0": -140,
-        "1": -230,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": -230
       },
       "size": {
         "0": 310,
         "1": 102
       },
       "flags": {},
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -420,22 +299,14 @@
       "type": "CLIPTextEncode",
       "pos": {
         "0": 410,
-        "1": 380,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": 380
       },
       "size": {
         "0": 420,
         "1": 180
       },
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -463,19 +334,197 @@
       "shape": 1
     },
     {
+      "id": 26,
+      "type": "CheckpointLoader|pysssss",
+      "pos": {
+        "0": -100,
+        "1": 560
+      },
+      "size": {
+        "0": 490,
+        "1": 142
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            21
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            19,
+            20
+          ],
+          "slot_index": 1,
+          "shape": 3
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            18
+          ],
+          "slot_index": 2,
+          "shape": 3
+        },
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoader|pysssss"
+      },
+      "widgets_values": [
+        {
+          "content": "SDXL\\juggernautXL_juggXIByRundiffusion.safetensors",
+          "image": null
+        },
+        "[none]"
+      ],
+      "shape": 1
+    },
+    {
+      "id": 12,
+      "type": "EZ Load from CSV",
+      "pos": {
+        "0": -140,
+        "1": -30
+      },
+      "size": {
+        "0": 310,
+        "1": 100
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "COMBO",
+          "link": 23,
+          "widget": {
+            "name": "prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive prompt",
+          "type": "STRING",
+          "links": [
+            11
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "negative prompt",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EZ Load from CSV"
+      },
+      "widgets_values": [
+        "Styles.csv",
+        "Photography | Vintage"
+      ],
+      "color": "#2a363b",
+      "bgcolor": "#3f5159",
+      "shape": 1
+    },
+    {
+      "id": 27,
+      "type": "EZ String",
+      "pos": {
+        "0": -360,
+        "1": -30
+      },
+      "size": [
+        210,
+        100
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "any",
+          "type": "*",
+          "links": [
+            23
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EZ String"
+      },
+      "widgets_values": [
+        "Photography | Cinematic"
+      ],
+      "color": "#232",
+      "bgcolor": "#353",
+      "shape": 1
+    },
+    {
+      "id": 28,
+      "type": "EZ String",
+      "pos": {
+        "0": -270,
+        "1": 290
+      },
+      "size": [
+        440,
+        100
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "any",
+          "type": "*",
+          "links": [
+            26
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EZ String"
+      },
+      "widgets_values": [
+        "Ocean view, dramatic, realistic, extreme details, blue betta fish, moonglow, "
+      ],
+      "color": "#232",
+      "bgcolor": "#353",
+      "shape": 1
+    },
+    {
       "id": 11,
       "type": "EZ Concatenate Text",
       "pos": {
         "0": 180,
-        "1": -30,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": -30
       },
       "size": {
         "0": 210,
@@ -504,7 +553,7 @@
         {
           "name": "text_03",
           "type": "STRING",
-          "link": 13,
+          "link": null,
           "widget": {
             "name": "text_03"
           }
@@ -584,7 +633,7 @@
         {
           "name": "text_13",
           "type": "STRING",
-          "link": null,
+          "link": 26,
           "widget": {
             "name": "text_13"
           }
@@ -725,151 +774,11 @@
       "shape": 1
     },
     {
-      "id": 26,
-      "type": "CheckpointLoader|pysssss",
-      "pos": {
-        "0": -100,
-        "1": 560,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 490,
-        "1": 142
-      },
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            21
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            19,
-            20
-          ],
-          "slot_index": 1,
-          "shape": 3
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            18
-          ],
-          "slot_index": 2,
-          "shape": 3
-        },
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CheckpointLoader|pysssss"
-      },
-      "widgets_values": [
-        {
-          "content": "SDXL\\juggernautXL_juggXIByRundiffusion.safetensors",
-          "image": null
-        },
-        "[none]"
-      ],
-      "shape": 1
-    },
-    {
-      "id": 12,
-      "type": "EZ Load from CSV",
-      "pos": {
-        "0": -140,
-        "1": -30,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 310,
-        "1": 100
-      },
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "prompt",
-          "type": "COMBO",
-          "link": 14,
-          "widget": {
-            "name": "prompt"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "positive prompt",
-          "type": "STRING",
-          "links": [
-            11
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "negative prompt",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 1,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "EZ Load from CSV"
-      },
-      "widgets_values": [
-        "Styles.csv",
-        "Photography | Vintage"
-      ],
-      "color": "#2a363b",
-      "bgcolor": "#3f5159",
-      "shape": 1
-    },
-    {
       "id": 3,
       "type": "KSampler",
       "pos": {
         "0": 860,
-        "1": 180,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
+        "1": 180
       },
       "size": {
         "0": 320,
@@ -914,66 +823,14 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        33981746362274,
-        "randomize",
+        989522937998716,
+        "fixed",
         30,
         5,
         "dpmpp_2m_sde",
         "karras",
         1
       ],
-      "shape": 1
-    },
-    {
-      "id": 15,
-      "type": "EZ String",
-      "pos": {
-        "0": -270,
-        "1": 290,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 440,
-        "1": 100
-      },
-      "flags": {
-        "collapsed": false
-      },
-      "order": 8,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "any",
-          "type": "*",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "string",
-          "type": "STRING",
-          "links": [
-            13
-          ],
-          "slot_index": 1,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "EZ String"
-      },
-      "widgets_values": [
-        "Ocean view, dramatic, realistic, extreme details, blue betta fish, moonglow, "
-      ],
-      "color": "#232",
-      "bgcolor": "#353",
       "shape": 1
     }
   ],
@@ -1035,22 +892,6 @@
       "STRING"
     ],
     [
-      13,
-      15,
-      1,
-      11,
-      2,
-      "STRING"
-    ],
-    [
-      14,
-      13,
-      0,
-      12,
-      0,
-      "COMBO"
-    ],
-    [
       16,
       11,
       0,
@@ -1089,16 +930,32 @@
       3,
       0,
       "MODEL"
+    ],
+    [
+      23,
+      27,
+      0,
+      12,
+      0,
+      "COMBO"
+    ],
+    [
+      26,
+      28,
+      0,
+      11,
+      12,
+      "STRING"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.648,
+      "scale": 0.7776,
       "offset": [
-        635.4595871913579,
-        13.861409881968545
+        -299.0599877100707,
+        -60.689322666794205
       ]
     }
   },
