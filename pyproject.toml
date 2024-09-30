@@ -1,0 +1,14 @@
+[project]
+name = "comfyui-ez-af-nodes"
+description = ""
+version = "1.0.0"
+license = {file = "LICENSE"}
+
+[project.urls]
+Repository = "https://github.com/ez-af/ComfyUI-EZ-AF-Nodes"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "ez-af"
+DisplayName = "ComfyUI-EZ-AF-Nodes"
+Icon = ""
