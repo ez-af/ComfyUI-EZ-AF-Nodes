@@ -225,15 +225,15 @@ class EZString:
             }
         }
 
-    RETURN_TYPES = (any, "STRING", )
-    RETURN_NAMES = ("any", "string", )
+    RETURN_TYPES = (any, )
+    RETURN_NAMES = ("any", )
     FUNCTION = "to_string"
     CATEGORY = "EZ-AF-Nodes"
 
     def to_string(self, String):
         
         Combo = String
-        return (Combo, String,)
+        return (Combo, )
 
 
 NODE_CLASS_MAPPINGS = {
