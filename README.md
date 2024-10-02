@@ -52,9 +52,9 @@ No more unnecessary conversions!
 
 ## Example
 
-Drag and Drop this image (or this [code](https://github.com/ez-af/ComfyUI-EZ-AF-Nodes/blob/main/workflow.json)) into your ComfyUI window to see example workflow with some tips:
+Drag and Drop this image (or this [code](https://github.com/ez-af/ComfyUI-EZ-AF-Nodes/blob/main/examples/workflow.json)) into your ComfyUI window to see example workflow with some tips:
 
-![Example Workflow](https://github.com/ez-af/ComfyUI-EZ-AF-Nodes/blob/main/Workflow.png)
+![Example Workflow](https://github.com/ez-af/ComfyUI-EZ-AF-Nodes/blob/main/examples/Workflow.png)
 
 @ez-af
 
