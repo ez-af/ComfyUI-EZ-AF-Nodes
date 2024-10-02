@@ -58,6 +58,8 @@ Drag and Drop this image (or this [code](https://github.com/ez-af/ComfyUI-EZ-AF-
 
 ## Youtube Overview
 
+Click this image, it leads to youtube video!
+
 [![Tutorial](https://github.com/user-attachments/assets/adcedccb-9e57-4aaa-a616-25194e8baf5c)](https://youtu.be/GRT_f14mGzc)
 
 
