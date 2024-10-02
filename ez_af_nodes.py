@@ -1,6 +1,6 @@
 import re
 import os
-from server import PromptServer
+from server import PromptServer # type: ignore # - server is a part of ComfyUI Core
 from aiohttp import web
 
 #REQUIRES Pythongosssss extensions to work. #Thank you pythongosssss!
@@ -34,6 +34,16 @@ async def get_prompts(request):
         prompts_list = ["[none]"]
     return web.json_response(prompts_list)
 
+def clean_text(text):
+    text = text + "," #Add comma in case it wasn't there
+    text = re.sub(r',+', ',', text) # Remove duplicate commas
+    text = re.sub(r'\s+,', ',', text) # Replace any occurrence of " ," with ","
+    text = re.sub(r',(\S)', r', \1', text) # Ensure there's a space after commas followed by a word without space
+    text = re.sub(r'\s+', ' ', text) # Replace multiple spaces with a single space
+    text = re.sub(r'\.,|,\.', '.', text) # Replace any occurrence of ".,", ",." with "."
+    text = text.strip().replace(" .", ".") # Strip leading and trailing spaces
+    text = text + " " #Add space at the end to ensure readability
+    return text
 
 def get_prompt(csv_file, prompt): #I know this is repeated, not optimized, Sorry. Code stolen from CSV Loader by PCMonsterx (I modified divider "," > ";" so that it's easier to write prompts and edit in excel)
     global prompts_path
@@ -143,7 +153,7 @@ class EZConcatText: #Code stolen from WAS-Suite by Jordan Thompson (WASasquatch)
         return {
             "required": {
                 "delimiter": ("STRING", {"default": "\\n"}),
-                "clean_whitespace": (["true", "false"],),
+                "beautify": (["true", "false"],),
             },
             "optional": {
                 "text_01": ("STRING", {"forceInput": True}),
@@ -178,7 +188,7 @@ class EZConcatText: #Code stolen from WAS-Suite by Jordan Thompson (WASasquatch)
 
     CATEGORY = "EZ-AF-Nodes"
 
-    def text_concatenate(self, delimiter, clean_whitespace, **kwargs):
+    def text_concatenate(self, delimiter, beautify, **kwargs):
         text_inputs = []
 
         # Handle special case where delimiter is "\n" (literal newline). 
@@ -191,20 +201,13 @@ class EZConcatText: #Code stolen from WAS-Suite by Jordan Thompson (WASasquatch)
 
             # Only process string input ports.
             if isinstance(v, str):
-                if clean_whitespace == "true":
-                    # Remove leading and trailing whitespace around this input.
-                    v = v.strip()
-
-                # Only use this input if it's a non-empty string, since it
-                # never makes sense to concatenate totally empty inputs.
-                # NOTE: If whitespace cleanup is disabled, inputs containing
-                # 100% whitespace will be treated as if it's a non-empty input.
                 if v != "":
                     text_inputs.append(v)
 
         # Merge the inputs. Will always generate an output, even if empty.
         merged_text = delimiter.join(text_inputs)
-
+        if beautify == "true":
+            merged_text = clean_text(merged_text)
         return (merged_text,)
 
 # STRING (STRING+COMBO OUTPUT) #
