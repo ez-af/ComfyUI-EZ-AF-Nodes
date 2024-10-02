@@ -56,6 +56,12 @@ Drag and Drop this image (or this [code](https://github.com/ez-af/ComfyUI-EZ-AF-
 
 ![Example Workflow](https://github.com/ez-af/ComfyUI-EZ-AF-Nodes/blob/main/examples/Workflow.png)
 
-@ez-af
+## Youtube Overview
+
+[![Tutorial](https://github.com/user-attachments/assets/adcedccb-9e57-4aaa-a616-25194e8baf5c)](https://youtu.be/GRT_f14mGzc)
+
+
+@ez-af!
+
 
 [ComfyUI-EZ-AF-Nodes](https://github.com/ez-af/ComfyUI-EZ-AF-Nodes)
