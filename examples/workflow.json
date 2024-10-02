@@ -1,6 +1,6 @@
 {
-  "last_node_id": 28,
-  "last_link_id": 26,
+  "last_node_id": 29,
+  "last_link_id": 27,
   "nodes": [
     {
       "id": 8,
@@ -113,7 +113,7 @@
         {
           "name": "text",
           "type": "STRING",
-          "link": 16,
+          "link": 25,
           "widget": {
             "name": "text"
           }
@@ -270,7 +270,7 @@
           "name": "positive prompt",
           "type": "STRING",
           "links": [
-            10
+            22
           ],
           "slot_index": 0,
           "shape": 3
@@ -414,7 +414,7 @@
         {
           "name": "prompt",
           "type": "COMBO",
-          "link": 23,
+          "link": 26,
           "widget": {
             "name": "prompt"
           }
@@ -425,7 +425,7 @@
           "name": "positive prompt",
           "type": "STRING",
           "links": [
-            11
+            23
           ],
           "slot_index": 0,
           "shape": 3
@@ -450,7 +450,67 @@
       "shape": 1
     },
     {
-      "id": 27,
+      "id": 3,
+      "type": "KSampler",
+      "pos": {
+        "0": 860,
+        "1": 180
+      },
+      "size": {
+        "0": 320,
+        "1": 470
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 21
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 4
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            7
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        454127897579941,
+        "randomize",
+        30,
+        5,
+        "dpmpp_2m_sde",
+        "karras",
+        1
+      ],
+      "shape": 1
+    },
+    {
+      "id": 28,
       "type": "EZ String",
       "pos": {
         "0": -360,
@@ -469,7 +529,7 @@
           "name": "any",
           "type": "*",
           "links": [
-            23
+            26
           ],
           "shape": 3
         }
@@ -485,7 +545,7 @@
       "shape": 1
     },
     {
-      "id": 28,
+      "id": 29,
       "type": "EZ String",
       "pos": {
         "0": -270,
@@ -504,9 +564,10 @@
           "name": "any",
           "type": "*",
           "links": [
-            26
+            27
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 0
         }
       ],
       "properties": {
@@ -520,16 +581,16 @@
       "shape": 1
     },
     {
-      "id": 11,
+      "id": 27,
       "type": "EZ Concatenate Text",
       "pos": {
         "0": 180,
         "1": -30
       },
-      "size": {
-        "0": 210,
-        "1": 542
-      },
+      "size": [
+        210,
+        540
+      ],
       "flags": {},
       "order": 11,
       "mode": 0,
@@ -537,7 +598,7 @@
         {
           "name": "text_01",
           "type": "STRING",
-          "link": 10,
+          "link": 22,
           "widget": {
             "name": "text_01"
           }
@@ -545,7 +606,7 @@
         {
           "name": "text_02",
           "type": "STRING",
-          "link": 11,
+          "link": 23,
           "widget": {
             "name": "text_02"
           }
@@ -625,7 +686,7 @@
         {
           "name": "text_12",
           "type": "STRING",
-          "link": null,
+          "link": 27,
           "widget": {
             "name": "text_12"
           }
@@ -633,7 +694,7 @@
         {
           "name": "text_13",
           "type": "STRING",
-          "link": 26,
+          "link": null,
           "widget": {
             "name": "text_13"
           }
@@ -732,9 +793,8 @@
           "name": "STRING",
           "type": "STRING",
           "links": [
-            16
+            25
           ],
-          "slot_index": 0,
           "shape": 3
         }
       ],
@@ -771,66 +831,6 @@
       ],
       "color": "#232",
       "bgcolor": "#353",
-      "shape": 1
-    },
-    {
-      "id": 3,
-      "type": "KSampler",
-      "pos": {
-        "0": 860,
-        "1": 180
-      },
-      "size": {
-        "0": 320,
-        "1": 470
-      },
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 21
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 4
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 6
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 2
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            7
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSampler"
-      },
-      "widgets_values": [
-        989522937998716,
-        "fixed",
-        30,
-        5,
-        "dpmpp_2m_sde",
-        "karras",
-        1
-      ],
       "shape": 1
     }
   ],
@@ -876,30 +876,6 @@
       "IMAGE"
     ],
     [
-      10,
-      10,
-      0,
-      11,
-      0,
-      "STRING"
-    ],
-    [
-      11,
-      12,
-      0,
-      11,
-      1,
-      "STRING"
-    ],
-    [
-      16,
-      11,
-      0,
-      6,
-      1,
-      "STRING"
-    ],
-    [
       18,
       26,
       2,
@@ -932,19 +908,43 @@
       "MODEL"
     ],
     [
-      23,
+      22,
+      10,
+      0,
       27,
+      0,
+      "STRING"
+    ],
+    [
+      23,
+      12,
+      0,
+      27,
+      1,
+      "STRING"
+    ],
+    [
+      25,
+      27,
+      0,
+      6,
+      1,
+      "STRING"
+    ],
+    [
+      26,
+      28,
       0,
       12,
       0,
       "COMBO"
     ],
     [
-      26,
-      28,
+      27,
+      29,
       0,
+      27,
       11,
-      12,
       "STRING"
     ]
   ],
@@ -952,10 +952,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7776,
+      "scale": 0.648,
       "offset": [
-        -299.0599877100707,
-        -60.689322666794205
+        36.542005034987405,
+        120.9220258629783
       ]
     }
   },
