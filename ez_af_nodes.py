@@ -39,7 +39,7 @@ def clean_text(text):
     text = re.sub(r',+', ',', text) # Remove duplicate commas
     text = re.sub(r'\s+,', ',', text) # Replace any occurrence of " ," with ","
     text = re.sub(r',(\S)', r', \1', text) # Ensure there's a space after commas followed by a word without space
-    text = re.sub(r'\s+', ' ', text) # Replace multiple spaces with a single space
+    text = re.sub(r'[ \t]+', ' ', text) # Replace multiple spaces with a single space, keep '\n'
     text = re.sub(r'\.,|,\.', '.', text) # Replace any occurrence of ".,", ",." with "."
     text = text.strip().replace(" .", ".") # Strip leading and trailing spaces
     text = text + " " #Add space at the end to ensure readability
