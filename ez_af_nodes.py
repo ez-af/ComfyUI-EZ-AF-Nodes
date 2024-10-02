@@ -35,14 +35,20 @@ async def get_prompts(request):
     return web.json_response(prompts_list)
 
 def clean_text(text):
-    text = text + "," #Add comma in case it wasn't there
+    
+    text = re.sub(r'\n','####', text) # Replace line breaks to keep it for future (line breaks should not be deleted by default
+    text = re.sub(r'\s+,', ',', text) # Remove spaces before commas
     text = re.sub(r',+', ',', text) # Remove duplicate commas
-    text = re.sub(r'\s+,', ',', text) # Replace any occurrence of " ," with ","
-    text = re.sub(r',(\S)', r', \1', text) # Ensure there's a space after commas followed by a word without space
-    text = re.sub(r'[ \t]+', ' ', text) # Replace multiple spaces with a single space, keep '\n'
-    text = re.sub(r'\.,|,\.', '.', text) # Replace any occurrence of ".,", ",." with "."
-    text = text.strip().replace(" .", ".") # Strip leading and trailing spaces
-    text = text + " " #Add space at the end to ensure readability
+    text = re.sub(r',(\S)', r', \1', text) # Add a space after a comma if it's followed by a word without space
+    text = re.sub(r'[ \t]+', ' ', text) # Replace multiple spaces with a single space, while keeping newlines
+    text = re.sub(r'\.,|,\.', '.', text) # Replace incorrect combinations like '.,' and ',.' with '.'
+    text = re.sub(r"####",'\n', text) # Return line breaks
+    text = re.sub(r'(\n\s*){3,}', '\n\n', text) # Consolidate three or more consecutive newlines into two
+    text = text.strip().replace(" .", ".") # Remove spaces before periods
+    text = re.sub(r',(\S)', r' ', text) # Add a space after a comma if it's followed by a word without space
+    cleaned_lines = [line.lstrip("., ") for line in text.splitlines()] # Delete excess commas
+    text = "\n".join(cleaned_lines)
+
     return text
 
 def get_prompt(csv_file, prompt): #I know this is repeated, not optimized, Sorry. Code stolen from CSV Loader by PCMonsterx (I modified divider "," > ";" so that it's easier to write prompts and edit in excel)
@@ -153,7 +159,8 @@ class EZConcatText: #Code stolen from WAS-Suite by Jordan Thompson (WASasquatch)
         return {
             "required": {
                 "delimiter": ("STRING", {"default": "\\n"}),
-                "beautify": (["true", "false"],),
+                "beautify": (["never", "before", "after"], {"default": "never"}),
+                "line_breaks": (["keep", "delete"], {"default": "keep"}),
             },
             "optional": {
                 "text_01": ("STRING", {"forceInput": True}),
@@ -188,12 +195,11 @@ class EZConcatText: #Code stolen from WAS-Suite by Jordan Thompson (WASasquatch)
 
     CATEGORY = "EZ-AF-Nodes"
 
-    def text_concatenate(self, delimiter, beautify, **kwargs):
+    def text_concatenate(self, delimiter, beautify, line_breaks, **kwargs):
         text_inputs = []
 
         # Handle special case where delimiter is "\n" (literal newline). 
-        if delimiter in ("\n", "\\n"):
-            delimiter = "\n"
+        delimiter=delimiter.replace("\\n","\n")
 
         # Iterate over the received inputs in sorted order.
         for k in sorted(kwargs.keys()):
@@ -201,13 +207,19 @@ class EZConcatText: #Code stolen from WAS-Suite by Jordan Thompson (WASasquatch)
 
             # Only process string input ports.
             if isinstance(v, str):
+                if beautify == "before":
+                        v=clean_text(v)
                 if v != "":
                     text_inputs.append(v)
 
         # Merge the inputs. Will always generate an output, even if empty.
         merged_text = delimiter.join(text_inputs)
-        if beautify == "true":
+        print(merged_text)
+        if beautify == "after":
             merged_text = clean_text(merged_text)
+        if line_breaks == "delete":
+            merged_text = re.sub(r'\n',' ', merged_text)
+            merged_text = re.sub(r'\s+', ' ', merged_text)
         return (merged_text,)
 
 # STRING (STRING+COMBO OUTPUT) #

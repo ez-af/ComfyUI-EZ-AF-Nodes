@@ -1,95 +1,7 @@
 {
-  "last_node_id": 29,
-  "last_link_id": 27,
+  "last_node_id": 46,
+  "last_link_id": 58,
   "nodes": [
-    {
-      "id": 8,
-      "type": "VAEDecode",
-      "pos": {
-        "0": 1210,
-        "1": 180
-      },
-      "size": {
-        "0": 210,
-        "1": 46
-      },
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 7
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 18
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            9
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      },
-      "widgets_values": [],
-      "shape": 1
-    },
-    {
-      "id": 22,
-      "type": "Note",
-      "pos": {
-        "0": 400,
-        "1": -30
-      },
-      "size": {
-        "0": 310,
-        "1": 170
-      },
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "properties": {},
-      "widgets_values": [
-        "'EZ MEGA Concat' is just a normal concatenation node for text strings\n\n! ! ! With a whopping 24 inputs: so you never have to stack concats again ! ! !"
-      ],
-      "color": "#323",
-      "bgcolor": "#535"
-    },
-    {
-      "id": 19,
-      "type": "Note",
-      "pos": {
-        "0": -140,
-        "1": -450
-      },
-      "size": {
-        "0": 310,
-        "1": 180
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "properties": {},
-      "widgets_values": [
-        "'EZ Load from CSV' node allows you to get prompt information from .csv files\n\nFiles are stored in '...\\custom_nodes\\ComfyUI-EZ-AF-Nodes\\CSV'\n\nSelected file will not change (unless it is no longer available in folder)\n\nSelected prompt will be updated to 'none' after each refresh"
-      ],
-      "color": "#323",
-      "bgcolor": "#535"
-    },
     {
       "id": 6,
       "type": "CLIPTextEncode",
@@ -102,7 +14,7 @@
         "1": 160
       },
       "flags": {},
-      "order": 12,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
@@ -141,7 +53,7 @@
       "id": 17,
       "type": "Note",
       "pos": {
-        "0": -360,
+        "0": -390,
         "1": 110
       },
       "size": {
@@ -149,7 +61,7 @@
         "1": 100
       },
       "flags": {},
-      "order": 2,
+      "order": 0,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -172,7 +84,7 @@
         "1": 106
       },
       "flags": {},
-      "order": 3,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -196,6 +108,41 @@
       "shape": 1
     },
     {
+      "id": 28,
+      "type": "EZ String",
+      "pos": {
+        "0": -390,
+        "1": -30
+      },
+      "size": {
+        "0": 210,
+        "1": 100
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "any",
+          "type": "*",
+          "links": [
+            26
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EZ String"
+      },
+      "widgets_values": [
+        "Photography | Cinematic"
+      ],
+      "color": "#232",
+      "bgcolor": "#353",
+      "shape": 1
+    },
+    {
       "id": 9,
       "type": "SaveImage",
       "pos": {
@@ -207,13 +154,13 @@
         "1": 640
       },
       "flags": {},
-      "order": 15,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 9
+          "link": 40
         }
       ],
       "outputs": [],
@@ -226,73 +173,129 @@
       "shape": 1
     },
     {
-      "id": 16,
-      "type": "Note",
+      "id": 8,
+      "type": "VAEDecode",
       "pos": {
-        "0": -270,
-        "1": 430
+        "0": 1210,
+        "1": 180
       },
       "size": {
-        "0": 440,
-        "1": 80
+        "0": 210,
+        "1": 46
       },
-      "flags": {
-        "collapsed": false
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 41
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            40
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
       },
-      "order": 4,
+      "widgets_values": [],
+      "shape": 1
+    },
+    {
+      "id": 3,
+      "type": "KSampler",
+      "pos": {
+        "0": 860,
+        "1": 180
+      },
+      "size": {
+        "0": 320,
+        "1": 470
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 21
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 4
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            41
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        237964570980224,
+        "randomize",
+        30,
+        5,
+        "dpmpp_2m_sde",
+        "karras",
+        1
+      ],
+      "shape": 1
+    },
+    {
+      "id": 19,
+      "type": "Note",
+      "pos": {
+        "0": -140,
+        "1": -500
+      },
+      "size": {
+        "0": 310,
+        "1": 220
+      },
+      "flags": {},
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "here 'EZ String' is used as a prompt (text) input\n\n'any' and 'string' outputs will return similar results"
+        "'EZ Load from CSV' node allows you to get prompt information from .csv files\n\nFiles are stored in '...\\custom_nodes\\ComfyUI-EZ-AF-Nodes\\CSV'\n\nSelected file will not change (unless it is no longer available in folder)\n\nSelected prompt will be updated to 'none' after each refresh"
       ],
       "color": "#323",
       "bgcolor": "#535"
-    },
-    {
-      "id": 10,
-      "type": "EZ Load from CSV",
-      "pos": {
-        "0": -140,
-        "1": -230
-      },
-      "size": {
-        "0": 310,
-        "1": 102
-      },
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "positive prompt",
-          "type": "STRING",
-          "links": [
-            22
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "negative prompt",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 1,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "EZ Load from CSV"
-      },
-      "widgets_values": [
-        "Styles.csv",
-        "Photography | Flower"
-      ],
-      "color": "#2a363b",
-      "bgcolor": "#3f5159",
-      "shape": 1
     },
     {
       "id": 7,
@@ -306,7 +309,7 @@
         "1": 180
       },
       "flags": {},
-      "order": 9,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -332,6 +335,67 @@
         "text, watermark, ugly, low quality,"
       ],
       "shape": 1
+    },
+    {
+      "id": 29,
+      "type": "EZ String",
+      "pos": {
+        "0": -300,
+        "1": 290
+      },
+      "size": {
+        "0": 440,
+        "1": 100
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "any",
+          "type": "*",
+          "links": [
+            57
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EZ String"
+      },
+      "widgets_values": [
+        "Ocean view, dramatic, realistic, extreme details, moonglow, "
+      ],
+      "color": "#232",
+      "bgcolor": "#353",
+      "shape": 1
+    },
+    {
+      "id": 16,
+      "type": "Note",
+      "pos": {
+        "0": -300,
+        "1": 430
+      },
+      "size": {
+        "0": 440,
+        "1": 80
+      },
+      "flags": {
+        "collapsed": false
+      },
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "here 'EZ String' is used as a prompt (text) input\n\n'any' and 'string' outputs will return similar results"
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
     },
     {
       "id": 26,
@@ -400,7 +464,7 @@
       "id": 12,
       "type": "EZ Load from CSV",
       "pos": {
-        "0": -140,
+        "0": -170,
         "1": -30
       },
       "size": {
@@ -425,7 +489,7 @@
           "name": "positive prompt",
           "type": "STRING",
           "links": [
-            23
+            54
           ],
           "slot_index": 0,
           "shape": 3
@@ -450,155 +514,24 @@
       "shape": 1
     },
     {
-      "id": 3,
-      "type": "KSampler",
-      "pos": {
-        "0": 860,
-        "1": 180
-      },
-      "size": {
-        "0": 320,
-        "1": 470
-      },
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 21
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 4
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 6
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 2
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            7
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSampler"
-      },
-      "widgets_values": [
-        454127897579941,
-        "randomize",
-        30,
-        5,
-        "dpmpp_2m_sde",
-        "karras",
-        1
-      ],
-      "shape": 1
-    },
-    {
-      "id": 28,
-      "type": "EZ String",
-      "pos": {
-        "0": -360,
-        "1": -30
-      },
-      "size": [
-        210,
-        100
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "any",
-          "type": "*",
-          "links": [
-            26
-          ],
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "EZ String"
-      },
-      "widgets_values": [
-        "Photography | Cinematic"
-      ],
-      "color": "#232",
-      "bgcolor": "#353",
-      "shape": 1
-    },
-    {
-      "id": 29,
-      "type": "EZ String",
-      "pos": {
-        "0": -270,
-        "1": 290
-      },
-      "size": [
-        440,
-        100
-      ],
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "any",
-          "type": "*",
-          "links": [
-            27
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "EZ String"
-      },
-      "widgets_values": [
-        "Ocean view, dramatic, realistic, extreme details, blue betta fish, moonglow, "
-      ],
-      "color": "#232",
-      "bgcolor": "#353",
-      "shape": 1
-    },
-    {
       "id": 27,
       "type": "EZ Concatenate Text",
       "pos": {
         "0": 180,
-        "1": -30
+        "1": -60
       },
-      "size": [
-        210,
-        540
-      ],
+      "size": {
+        "0": 210,
+        "1": 570
+      },
       "flags": {},
-      "order": 11,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
           "name": "text_01",
           "type": "STRING",
-          "link": 22,
+          "link": 55,
           "widget": {
             "name": "text_01"
           }
@@ -606,7 +539,7 @@
         {
           "name": "text_02",
           "type": "STRING",
-          "link": 23,
+          "link": null,
           "widget": {
             "name": "text_02"
           }
@@ -622,7 +555,7 @@
         {
           "name": "text_04",
           "type": "STRING",
-          "link": null,
+          "link": 54,
           "widget": {
             "name": "text_04"
           }
@@ -654,7 +587,7 @@
         {
           "name": "text_08",
           "type": "STRING",
-          "link": null,
+          "link": 58,
           "widget": {
             "name": "text_08"
           }
@@ -686,7 +619,7 @@
         {
           "name": "text_12",
           "type": "STRING",
-          "link": 27,
+          "link": null,
           "widget": {
             "name": "text_12"
           }
@@ -718,7 +651,7 @@
         {
           "name": "text_16",
           "type": "STRING",
-          "link": null,
+          "link": 57,
           "widget": {
             "name": "text_16"
           }
@@ -795,6 +728,7 @@
           "links": [
             25
           ],
+          "slot_index": 0,
           "shape": 3
         }
       ],
@@ -803,7 +737,8 @@
       },
       "widgets_values": [
         "\\n",
-        "true",
+        "after",
+        "keep",
         "",
         "",
         "",
@@ -832,6 +767,109 @@
       "color": "#232",
       "bgcolor": "#353",
       "shape": 1
+    },
+    {
+      "id": 22,
+      "type": "Note",
+      "pos": {
+        "0": 410,
+        "1": -30
+      },
+      "size": {
+        "0": 310,
+        "1": 170
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "'EZ MEGA Concat' is just a normal concatenation node for text strings\n\n! ! ! With a whopping 24 inputs: so you never have to stack concats again ! ! !\n\nIt also provides prompt-beautifying options with or without delimiter!"
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 46,
+      "type": "EZ String",
+      "pos": {
+        "0": -410,
+        "1": -210
+      },
+      "size": {
+        "0": 210,
+        "1": 100
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "any",
+          "type": "*",
+          "links": [
+            55
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EZ String"
+      },
+      "widgets_values": [
+        "Blue betta fish, corals,"
+      ],
+      "color": "#232",
+      "bgcolor": "#353",
+      "shape": 1
+    },
+    {
+      "id": 10,
+      "type": "EZ Load from CSV",
+      "pos": {
+        "0": -140,
+        "1": -230
+      },
+      "size": {
+        "0": 310,
+        "1": 102
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "positive prompt",
+          "type": "STRING",
+          "links": [
+            58
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "negative prompt",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EZ Load from CSV"
+      },
+      "widgets_values": [
+        "Styles.csv",
+        "Photography | Surreal"
+      ],
+      "color": "#2a363b",
+      "bgcolor": "#3f5159",
+      "shape": 1
     }
   ],
   "links": [
@@ -858,22 +896,6 @@
       3,
       2,
       "CONDITIONING"
-    ],
-    [
-      7,
-      3,
-      0,
-      8,
-      0,
-      "LATENT"
-    ],
-    [
-      9,
-      8,
-      0,
-      9,
-      0,
-      "IMAGE"
     ],
     [
       18,
@@ -908,22 +930,6 @@
       "MODEL"
     ],
     [
-      22,
-      10,
-      0,
-      27,
-      0,
-      "STRING"
-    ],
-    [
-      23,
-      12,
-      0,
-      27,
-      1,
-      "STRING"
-    ],
-    [
       25,
       27,
       0,
@@ -940,11 +946,51 @@
       "COMBO"
     ],
     [
+      40,
+      8,
+      0,
+      9,
+      0,
+      "IMAGE"
+    ],
+    [
+      41,
+      3,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      54,
+      12,
+      0,
       27,
+      3,
+      "STRING"
+    ],
+    [
+      55,
+      46,
+      0,
+      27,
+      0,
+      "STRING"
+    ],
+    [
+      57,
       29,
       0,
       27,
-      11,
+      15,
+      "STRING"
+    ],
+    [
+      58,
+      10,
+      0,
+      27,
+      7,
       "STRING"
     ]
   ],
@@ -952,10 +998,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.648,
+      "scale": 0.7776,
       "offset": [
-        36.542005034987405,
-        120.9220258629783
+        450.95964763523966,
+        173.468940278681
       ]
     }
   },
