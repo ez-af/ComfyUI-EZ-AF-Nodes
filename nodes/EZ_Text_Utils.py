@@ -33,23 +33,38 @@ class EZ_Extract_Prompt:
             return ("\n".join(result),)
 
         searchword = searchword.lower()
-        collect = False
-        lines_out = []
+        
+        # Split input by separator to handle multiple entries
+        entries = string.split('---')
+        all_matches = []
+        
+        for entry in entries:
+            collect = False
+            lines_out = []
+            
+            for line in entry.splitlines():
+                if not collect:
+                    # Detect header line
+                    header = line.strip()
+                    if header.lower().rstrip(':') == searchword:
+                        collect = True
+                    continue
 
-        for line in string.splitlines():
-            if not collect:
-                # Detect header line
-                header = line.strip()
-                if header.lower().rstrip(':') == searchword:
-                    collect = True
-                continue
+                # Stop collecting when we hit another header or empty line followed by header
+                stripped_line = line.strip()
+                if stripped_line == "":
+                    continue  # Skip empty lines but don't stop collecting
+                
+                # Check if this is a new header (ends with : and is a single word)
+                if stripped_line.endswith(":") and len(stripped_line.split()) == 1:
+                    break  # Stop collecting when we hit a new header
+                    
+                lines_out.append(line)
+            
+            if lines_out:
+                all_matches.extend(lines_out)
 
-            # Stop on first empty line
-            if line.strip() == "":
-                break
-            lines_out.append(line)
-
-        result = "\n".join(lines_out)
+        result = "\n".join(all_matches)
         
         # If no content was extracted and pass_original is True, return the original string
         if not result.strip() and pass_original:
