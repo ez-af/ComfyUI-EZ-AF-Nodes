@@ -37,9 +37,10 @@ async function addFileBrowserUI(node) {
     const BOTTOM_PADDING = 5;
     const BOTTOM_SKIP = 10;
     const TOP_BAR_HEIGHT = 0;
-    const ITEM_SIZE = 80;
+    const ITEM_SIZE = 180;
+    const MIN_ITEM_SIZE = 180; // Your desired base size
     const ITEM_PADDING = 10;
-    const SCROLLBAR_WIDTH = 13;
+    const SCROLLBAR_WIDTH = 8;
     const TEXT_PADDING = 10;
     const PREVIEW_PADDING = 20; // Padding for preview text
     const PREVIEW_SKIP = 152; // Skip for preview text
@@ -67,10 +68,22 @@ async function addFileBrowserUI(node) {
     let files = [];
     let thumbnails = {};
     let scrollOffset = 0;
+    let targetScrollOffset = 0;
+    let isAnimating = false;
     let isDragging = false;
     let scrollStartY = 0;
     let scrollStartOffset = 0;
 
+
+// Helper to calculate the stretched size
+function getAdaptiveSize() {
+    const availableWidth = node.size[0] - SCROLLBAR_WIDTH - ITEM_PADDING;
+    // Calculate how many columns fit at the minimum size
+    const cols = Math.max(1, Math.floor(availableWidth / (MIN_ITEM_SIZE + ITEM_PADDING)));
+    // Distribute remaining space so they fit perfectly
+    const stretchedSize = (availableWidth / cols) - ITEM_PADDING;
+    return { size: stretchedSize, cols: cols };
+}
     async function updateFiles() {
         try {
             const response = await fetch('/ez_file_browser/get_directory_structure', {
@@ -326,8 +339,68 @@ async function addFileBrowserUI(node) {
         const itemsPerRow = Math.floor((node.size[0] - SCROLLBAR_WIDTH) / (ITEM_SIZE + ITEM_PADDING));
         return Math.ceil(files.length / itemsPerRow) * (ITEM_SIZE + ITEM_PADDING);
     }
+function drawFiles(ctx, x, y, width, height) {
+    const { size, cols } = getAdaptiveSize();
+    const startRow = Math.floor(scrollOffset / (size + ITEM_PADDING));
+    const endRow = Math.min(Math.ceil(files.length / cols), startRow + Math.ceil(height / (size + ITEM_PADDING)) + 2);
 
-    function drawFiles(ctx, x, y, width, height) {
+    for (let row = startRow; row < endRow; row++) {
+        for (let col = 0; col < cols; col++) {
+            const fileIndex = row * cols + col;
+            if (fileIndex >= files.length) break;
+
+            const file = files[fileIndex];
+            const xPos = x + ITEM_PADDING + col * (size + ITEM_PADDING);
+            const yPos = y + ITEM_PADDING + row * (size + ITEM_PADDING);
+
+            // Background
+            const bgColor = selectedFiles.has(file) ? COLORS.itemSelected : COLORS.item;
+            drawRoundedRect(ctx, xPos, yPos, size, size, BORDER_RADIUS, bgColor);
+
+            // Thumbnail
+            if (thumbnails[file]) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.roundRect(xPos, yPos, size, size, BORDER_RADIUS);
+                ctx.clip();
+                ctx.drawImage(thumbnails[file], xPos, yPos, size, size);
+                ctx.restore();
+            }
+
+            // Gradient Overlay (Dynamic Height)
+            const gradientHeight = size / 2;
+            const gradient = ctx.createLinearGradient(xPos, yPos + size - gradientHeight, xPos, yPos + size);
+            gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+            gradient.addColorStop(1, 'rgb(0, 0, 0)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(xPos, yPos + size - gradientHeight, size, gradientHeight);
+
+            // Filename (Dynamic Truncation)
+            ctx.fillStyle = COLORS.text;
+            ctx.font = "12px Arial";
+            const pathParts = file.split(/[/\\]/);
+            const fileName = pathParts[pathParts.length - 1].split(".")[0];
+            const maxTextWidth = size - TEXT_PADDING * 2;
+            
+            let displayText = fileName;
+            if (ctx.measureText(displayText).width > maxTextWidth) {
+                while (ctx.measureText(displayText + ELLIPSIS).width > maxTextWidth && displayText.length > 0) {
+                    displayText = displayText.slice(0, -1);
+                }
+                displayText += ELLIPSIS;
+            }
+            ctx.fillText(displayText, xPos + TEXT_PADDING, yPos + size - TEXT_PADDING);
+
+            // Selection Border
+            if (selectedFiles.has(file)) {
+                ctx.strokeStyle = COLORS.itemSelected;
+                ctx.lineWidth = 3;
+                ctx.strokeRect(xPos - 1, yPos - 1, size + 2, size + 2);
+            }
+        }
+    }
+}
+    function XdrawFiles(ctx, x, y, width, height) {
         ctx.fillStyle = COLORS.background;
         ctx.fillRect(x, y, width, height);
 
@@ -418,27 +491,22 @@ async function addFileBrowserUI(node) {
         }
     }
 
-    node.onMouseDown = function(event) {
-        const pos = TOP_PADDING - TOP_BAR_HEIGHT;
-        const localY = event.canvasY - this.pos[1] - pos + CLICK_Y_OFFSET;
-        const localX = event.canvasX - this.pos[0] + CLICK_X_OFFSET;
+node.onMouseDown = function(event) {
+    const pos = TOP_PADDING - TOP_BAR_HEIGHT;
+    const localY = event.canvasY - this.pos[1] - pos + CLICK_Y_OFFSET;
+    const localX = event.canvasX - this.pos[0] + CLICK_X_OFFSET;
 
-        if (localY < 0 || localY > this.size[1] || localX < 0 || localX > this.size[0]) {
-            return false;
-        }
-
-        if (localY > TOP_BAR_HEIGHT && localY < this.size[1] - pos - 10) {
-            if (localX >= 0 && localX < this.size[0] - SCROLLBAR_WIDTH) {
-                // Calculate which file was clicked
-                const itemsPerRow = Math.floor((this.size[0] - SCROLLBAR_WIDTH) / (ITEM_SIZE + ITEM_PADDING));
-                const row = Math.floor((localY - TOP_BAR_HEIGHT + scrollOffset) / (ITEM_SIZE + ITEM_PADDING));
-                const col = Math.floor(localX / (ITEM_SIZE + ITEM_PADDING));
-                const fileIndex = row * itemsPerRow + col;
-                
-                if (fileIndex >= 0 && fileIndex < files.length) {
-                    updateSelectedFiles(files[fileIndex]);
-                }
-                return true;
+    if (localY > TOP_BAR_HEIGHT && localY < this.size[1] - pos - 10) {
+        if (localX >= 0 && localX < this.size[0] - SCROLLBAR_WIDTH) {
+            const { size, cols } = getAdaptiveSize(); // Get the current calculated size
+            const row = Math.floor((localY - TOP_BAR_HEIGHT + scrollOffset) / (size + ITEM_PADDING));
+            const col = Math.floor(localX / (size + ITEM_PADDING));
+            const fileIndex = row * cols + col;
+            
+            if (fileIndex >= 0 && fileIndex < files.length) {
+                updateSelectedFiles(files[fileIndex]);
+            }
+            return true;
             } else if (localX >= this.size[0] - SCROLLBAR_WIDTH) {
                 // Click on scrollbar
                 isDragging = true;
@@ -504,4 +572,70 @@ async function addFileBrowserUI(node) {
         }
         updateNodeSize();
     }, 0);
+    
+const canvasEl = app.canvas.canvas;
+
+    const stopViewportZoom = (event) => {
+        // 1. Convert screen coordinates to ComfyUI world coordinates
+        const rect = canvasEl.getBoundingClientRect();
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+        const worldPos = app.canvas.convertCanvasToOffset([mouseX, mouseY]);
+        
+        const localX = worldPos[0] - node.pos[0];
+        const localY = worldPos[1] - node.pos[1];
+
+        // 2. Define the exact hit-box for the file browser
+        // Check if mouse is within the width of the node AND within the file list Y bounds
+        const isOverBrowser = (
+            localX >= 0 && 
+            localX <= node.size[0] &&
+            localY >= TOP_PADDING && 
+            localY <= node.size[1] - BOTTOM_SKIP
+        );
+
+if (isOverBrowser && !node.flags.collapsed) {
+        event.preventDefault(); 
+        event.stopPropagation();
+
+        const totalHeight = getTotalFilesHeight();
+        const visibleHeight = node.size[1] - TOP_PADDING - BOTTOM_PADDING - BOTTOM_SKIP;
+        const maxOffset = Math.max(0, totalHeight - visibleHeight);
+
+        // Update target instead of current offset
+        // Adjust the 0.5 multiplier to change scroll speed
+        targetScrollOffset = Math.max(0, Math.min(maxOffset, targetScrollOffset + event.deltaY * 0.5));
+
+        // Start the animation loop if it's not running
+        if (!isAnimating) {
+            isAnimating = true;
+            requestAnimationFrame(smoothScrollLoop);
+        }
+    }
+};
+function smoothScrollLoop() {
+    // The closer the factor (0.1) is to 1, the "snappier" it feels. 
+    // Closer to 0.01 feels "heavy" or "floaty".
+    const easingFactor = 0.15;
+    const diff = targetScrollOffset - scrollOffset;
+
+    if (Math.abs(diff) > 0.1) {
+        scrollOffset += diff * easingFactor;
+        node.setDirtyCanvas(true);
+        requestAnimationFrame(smoothScrollLoop);
+    } else {
+        scrollOffset = targetScrollOffset;
+        isAnimating = false;
+        node.setDirtyCanvas(true);
+    }
+}
+    // Use { capture: true } to intercept the event before ComfyUI's zoom listener
+    canvasEl.addEventListener('wheel', stopViewportZoom, { passive: false, capture: true });
+
+    // Cleanup when node is removed
+    const onRemoved = node.onRemoved;
+    node.onRemoved = function() {
+        canvasEl.removeEventListener('wheel', stopViewportZoom, { capture: true });
+        if (onRemoved) onRemoved.apply(this, arguments);
+    };
 }

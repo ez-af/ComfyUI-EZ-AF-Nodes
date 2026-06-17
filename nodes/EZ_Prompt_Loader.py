@@ -35,6 +35,8 @@ class EZ_Prompt_Loader:
             "optional": {
                 "opt_seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff, "forceInput": True, "tooltip": "Control SEED, used only in 'random' selection mode.\nIf not connected, always re-executes node on prompt"}),
                 "filter_text": ("STRING", {"default": "", "tooltip": "Filter items based on a text string"}),
+                "prefix": ("STRING", {"default": "", "tooltip": "Add text string before each tag (comma-separated)"}),
+                "suffix": ("STRING", {"default": "", "tooltip": "Add text string after each tag (comma-separated)"}),
                 "selected_files": ("STRING", {"default": ""}),
             }
         }
@@ -49,7 +51,7 @@ class EZ_Prompt_Loader:
     CATEGORY = "EZ NODES"
     DESCRIPTION = "Loads prompt texts from files based on UI selection.\nSearches recursively through all subdirectories within the selected folder."
 
-    def browse_files(self, prompt_directory, selection_mode="single", selected_files="", filter_text="", opt_seed=0):
+    def browse_files(self, prompt_directory, selection_mode="single", selected_files="", filter_text="", prefix="", suffix="", opt_seed=0):
         global prompts_path
         prompt_directory = os.path.join(prompts_path, prompt_directory)
         prompt_directory = os.path.abspath(prompt_directory)
@@ -102,9 +104,16 @@ class EZ_Prompt_Loader:
             if os.path.isfile(txt_path):
                 with open(txt_path, "r", encoding="utf-8") as f:
                     prompt_text = f.read().strip()
-
+        if prefix:
+            prompt_text = [prefix if prompt_text == '' else f"{prefix}, {prompt_text}"]
+        # Add Suffix           
+        if prefix and suffix:    
+            prompt_text = [suffix if prompt_text == '' else f"{prompt_text[0]}, {suffix}"]
+        elif not prefix and suffix:   
+            prompt_text = [suffix if prompt_text == '' else f"{prompt_text}, {suffix}"]            
+            
         # List output: if 0 or 1 selected, output all prompts; else output selected_list
-        if len(selected_list) <= 1:
+        if len(selected_list) < 1:
             all_output = []
             for file in files:
                 txt_path = os.path.join(prompt_directory, file)
@@ -118,6 +127,13 @@ class EZ_Prompt_Loader:
                 if os.path.isfile(txt_path):
                     with open(txt_path, "r", encoding="utf-8") as f:
                         all_output.append(f.read().strip())
+
+        # Add Prefix
+        if prefix:
+            all_output = [prefix if tag == '' else f"{prefix}, {tag}" for tag in all_output]
+        # Add Suffix
+        if suffix:                   
+            all_output = [suffix if tag == '' else f"{tag}, {suffix}" for tag in all_output]
 
         return (prompt_text, prompt_directory, all_output)
 
@@ -211,7 +227,7 @@ async def api_get_thumbnail(request):
 
     try:
         with Image.open(full_path) as img:
-            img.thumbnail((80, 80))
+            img.thumbnail((256,256))
             buf = io.BytesIO()
             img.save(buf, format='PNG')
             buf.seek(0)

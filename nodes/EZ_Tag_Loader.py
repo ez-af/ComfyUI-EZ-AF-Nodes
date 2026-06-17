@@ -35,7 +35,8 @@ class EZ_Tag_Loader:
             "optional": {
                 "opt_seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff, "forceInput": True, "tooltip": "Control SEED, used only in 'random' selection mode.\nIf not connected, always re-executes node on prompt"}),
                 "filter_text": ("STRING", {"default": "", "tooltip": "Filter items based on a text string"}),
-                "add_after": ("STRING", {"default": "", "tooltip": "Add text string after each tag (space-separated)"}),
+                "prefix": ("STRING", {"default": "", "tooltip": "Add text string after each tag (comma-separated)"}),
+                "suffix": ("STRING", {"default": "", "tooltip": "Add text string after each tag (comma-separated)"}),
                 "selected_tags": ("STRING", {"default": ""}),
             }
         }
@@ -50,7 +51,7 @@ class EZ_Tag_Loader:
     CATEGORY = "EZ NODES"
     DESCRIPTION = "Loads tags from selected text file based on UI selection."
 
-    def browse_tags(self, tags_file, selection_mode="single", selected_tags="", filter_text="", add_after="", opt_seed=0):
+    def browse_tags(self, tags_file, selection_mode="single", selected_tags="", filter_text="", prefix="", suffix="", opt_seed=0):
         global tags_path
         tags_file = os.path.join(tags_path, tags_file)
         tags_file = os.path.abspath(tags_file)
@@ -105,40 +106,46 @@ class EZ_Tag_Loader:
             else:
                 selected_list = [selected_tags]
 
-        # Add 'add_after' to each selected tag if provided
-        if add_after:
-            selected_list = [add_after if tag == '' else f"{tag} {add_after}" for tag in selected_list]
-
+        # Add 'suffix' to each selected tag if provided
+        #if suffix:
+        #    selected_list = [suffix if tag == '' else f"{tag} , {suffix}" for tag in selected_list]
+        #if prefix:
+        #    selected_list = [prefix if tag == '' else f"{prefix}, {tag}" for tag in selected_list]
         # Main output
         main_output = ", ".join(selected_list)
+        # Add Prefix       
+        if prefix:
+            main_output = [prefix if main_output == '' else f"{prefix}, {main_output}"]
+        # Add Suffix           
+        if suffix:    
+            main_output = [suffix if main_output == '' else f"{main_output[0]}, {suffix}"]        
 
-        # List output: if 0 or 1 selected, output all tags (with add_after if present); else output selected_list
-        if len(selected_list) <= 1:
-            if add_after:
-                all_output = [add_after if tag == '' else f"{tag} {add_after}" for tag in tags]
-            else:
-                all_output = tags
+        # Add Prefix
+        if len(selected_list) == 0 and prefix:
+            all_output = [prefix]
+        elif len(selected_list) > 0 and prefix:
+            all_output = [prefix if tag == '' else f"{prefix}, {tag}" for tag in selected_list]
         else:
-            # Special case: only [empty] tag selected and add_after is not empty
-            if len(selected_list) == 1 and selected_list[0] == add_after and add_after.strip() != '':
-                all_output = [add_after]
-            else:
-                all_output = selected_list
-
+            all_output = selected_list
+        # Add Suffix
+        if len(all_output) == 0 and suffix:                   
+            all_output = [suffix]
+        elif len(all_output) > 0 and suffix:                   
+            all_output = [suffix if tag == '' else f"{tag}, {suffix}" for tag in all_output]
         return (main_output, tags_file, all_output)
 
     @classmethod
-    def IS_CHANGED(cls, tags_file, selection_mode, selected_tags="", filter_text="", add_after="", opt_seed=0):
+    def IS_CHANGED(cls, tags_file, selection_mode, selected_tags="", filter_text="", suffix="", opt_seed=0):
         if selection_mode == "random":
             # For random mode, include seed in the hash only if opt_seed is provided and not 0
             if opt_seed is not None and opt_seed != 0:
                 return str(opt_seed) + str(tags_file) + str(selection_mode) + str(filter_text)
             else:
                 return float('nan')  # Fall back to normal random behavior
-        return selected_tags + str(tags_file) + str(selection_mode) + str(add_after)
+        return selected_tags + str(tags_file) + str(selection_mode) + str(suffix)
 
     @classmethod
-    def VALIDATE_INPUTS(cls, tags_file, selection_mode="single", selected_tags="", filter_text="", add_after="", opt_seed=0):
+    def VALIDATE_INPUTS(cls, tags_file, selection_mode="single", selected_tags="", filter_text="", suffix="", opt_seed=0):
         global tags_path
         tags_file = os.path.join(tags_path, tags_file)
         tags_file = os.path.abspath(tags_file)
